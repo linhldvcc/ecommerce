@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Gate $gate)
     {
+        Schema::defaultStringLength(191);
+
         $gate->define('permission', function ($user, $permissions) {
             if (is_array($permissions)) {
                 $permit = true;

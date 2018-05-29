@@ -8,11 +8,12 @@ class HomeController extends BaseController
     {
         parent::__construct();
 
-        $this->viewData['title'] = trans('home.title');
+        $this->viewData['title'] = "Tieu de admin";
     }
 
     public function index()
     {
+        //return "DSDSD";
         return view('admin.welcome', $this->viewData);
     }
 }

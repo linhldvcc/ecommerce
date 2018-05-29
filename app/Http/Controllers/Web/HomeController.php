@@ -22,7 +22,7 @@ class HomeController extends BaseController
 
         \Log::info('sendmail');
 
-        EmailService::send(new WelcomeMail($user), $user->email);
+//        EmailService::send(new WelcomeMail($user), $user->email);
         return view('web.welcome', $this->viewData);
     }
 }
