@@ -17,12 +17,6 @@ class HomeController extends BaseController
 
     public function index()
     {
-        $user = new User();
-        $user->email = 'mr.nttung@gmail.com';
-
-        \Log::info('sendmail');
-
-//        EmailService::send(new WelcomeMail($user), $user->email);
         return view('web.welcome', $this->viewData);
     }
 }

@@ -41,6 +41,6 @@ class User extends Authenticatable
     public function isAccessAdmin()
     {
         //TODO: check admin
-        return false;
+        return $this->id == 1;
     }
 }

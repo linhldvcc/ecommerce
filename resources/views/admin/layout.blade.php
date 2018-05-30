@@ -14,15 +14,15 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
-    <link rel="shortcut icon" href="backend/img//favicon.png">
+    <link rel="shortcut icon" href="/backend/img//favicon.png">
     <title>@yield('title')</title>
 
     <!-- Icons -->
-    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Main styles for this application -->
-    <link href="backend/css/style.css" rel="stylesheet">
+    <link href="/backend/css/style.css" rel="stylesheet">
     <!-- Styles required by this views -->
 
 </head>
@@ -88,8 +88,8 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <img src="backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
-                <span class="d-md-down-none">admin</span>
+                <img src="/backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                <span class="d-md-down-none">{{ Auth::user()->email }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center">
@@ -97,18 +97,22 @@
                 </div>
                 <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
                 <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a>
-                <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a>
-                <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a>
                 <div class="dropdown-header text-center">
                     <strong>Settings</strong>
                 </div>
                 <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-secondary">42</span></a>
                 <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
                 <div class="divider"></div>
                 <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </div>
         </li>
     </ul>
@@ -133,7 +137,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Quản trị sản phẩm</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="components-buttons.html"><i class="icon-puzzle"></i> QL Category</a>
+                            <a class="nav-link" href="{{ route('category.index') }}"><i class="icon-puzzle"></i> QL Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="components-social-buttons.html"><i class="icon-puzzle"></i> QL Sản phẩm</a>
@@ -143,37 +147,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Icons</a>
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="icons-font-awesome.html"><i class="icon-star"></i> Font Awesome <span class="badge badge-secondary">4.7</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="icons-simple-line-icons.html"><i class="icon-star"></i> Simple Line Icons</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Pages</a>
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-login.html" target="_top"><i class="icon-star"></i> Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-register.html" target="_top"><i class="icon-star"></i> Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-404.html" target="_top"><i class="icon-star"></i> Error 404</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages-500.html" target="_top"><i class="icon-star"></i> Error 500</a>
-                        </li>
-                    </ul>
-                </li>
-
-
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -201,6 +174,21 @@
         <div class="container-fluid">
 
             <div class="animated fadeIn">
+                @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @yield('content')
             </div>
 
@@ -230,7 +218,7 @@
                 <hr class="transparent mx-3 my-0">
                 <div class="callout callout-warning m-0 py-3">
                     <div class="avatar float-right">
-                        <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                     </div>
                     <div>Meeting with
                         <strong>Lucas</strong>
@@ -241,7 +229,7 @@
                 <hr class="mx-3 my-0">
                 <div class="callout callout-info m-0 py-3">
                     <div class="avatar float-right">
-                        <img src="backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="/backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                     </div>
                     <div>Skype with
                         <strong>Megan</strong>
@@ -262,19 +250,19 @@
                     <small class="text-muted"><i class="icon-home"></i>&nbsp; creativeLabs HQ </small>
                     <div class="avatars-stack mt-2">
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                     </div>
                 </div>
@@ -294,25 +282,25 @@
                     <small class="text-muted"><i class="icon-home"></i>&nbsp; creativeLabs HQ </small>
                     <div class="avatars-stack mt-2">
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="backend/img//avatars/8.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/8.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                     </div>
                 </div>
@@ -322,7 +310,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -337,7 +325,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -352,7 +340,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -367,7 +355,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -382,7 +370,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -493,22 +481,22 @@
 </footer>
 
 <!-- Bootstrap and necessary plugins -->
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
-<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="node_modules/pace-progress/pace.min.js"></script>
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/pace-progress/pace.min.js"></script>
 
 <!-- Plugins and scripts required by all views -->
-<script src="node_modules/chart.js/dist/Chart.min.js"></script>
+<script src="/node_modules/chart.js/dist/Chart.min.js"></script>
 
 <!-- GenesisUI main scripts -->
 
-<script src="backend/js/app.js"></script>
+<script src="/backend/js/app.js"></script>
 
 <!-- Plugins and scripts required by this views -->
 
 <!-- Custom scripts required by this view -->
-<script src="backend/js/views/main.js"></script>
+<script src="/backend/js/views/main.js"></script>
 
 </body>
 </html>
