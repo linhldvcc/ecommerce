@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-sm-2">
-            <a href="{{ route('category.create') }}" class="btn btn-success btn-sm">Add category</a>
+            <a href="{{ route('product.create') }}" class="btn btn-success btn-sm">Add product</a>
             <br><br>
         </div>
     </div>
@@ -14,24 +14,28 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i> Danh sách Category
+                    <i class="fa fa-align-justify"></i> Danh sách Product
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Tên</th>
+                            <th>Tiêu đề</th>
+                            <th>Giá</th>
+                            <th>Giá cũ</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($products as $product)
                             <tr>
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $product->title }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->old_price }}</td>
                                 <td>
-                                    <a href="{{ route('category.edit', $category->id) }}" class="btn btn-success btn-sm">Sửa</a>
+                                    <a href="{{ route('product.edit', $product->id) }}" class="btn btn-success btn-sm">Sửa</a>
 
-                                    <form class="d-inline" action="{{ route('category.destroy', $category->id) }}" method="post">
+                                    <form class="d-inline" action="{{ route('product.destroy', $product->id) }}" method="post">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button class="btn btn-danger btn-sm" type="submit" onclick="return ConfirmDelete();">Xóa</button>
@@ -42,7 +46,7 @@
                         </tbody>
                     </table>
                     <ul class="pagination">
-                        {{ $categories->links() }}
+                        {{ $products->links() }}
                     </ul>
                 </div>
             </div>
@@ -53,7 +57,7 @@
     <script>
         function ConfirmDelete()
         {
-            var x = confirm("Bạn có chắc chắn muốn xóa Category không?");
+            var x = confirm("Bạn có chắc chắn muốn xóa Product không?");
             if (x)
                 return true;
             else

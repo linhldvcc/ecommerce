@@ -140,7 +140,7 @@
                             <a class="nav-link" href="{{ route('category.index') }}"><i class="icon-puzzle"></i> QL Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="components-social-buttons.html"><i class="icon-puzzle"></i> QL Sản phẩm</a>
+                            <a class="nav-link" href="{{ route('product.index') }}"><i class="icon-puzzle"></i> QL Sản phẩm</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="components-cards.html"><i class="icon-puzzle"></i> Cards</a>

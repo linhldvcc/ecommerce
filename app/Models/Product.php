@@ -2,9 +2,9 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product;
+use App\Models\Category;
 
-class Category extends Base
+class Product extends Base
 {
     /**
      * The attributes that are mass assignable.
@@ -12,13 +12,14 @@ class Category extends Base
      * @var array
      */
     protected $fillable = [
-        'name',
+        'title',
+        'desc',
+        'price',
+        'old_price',
     ];
-
-    public $timestamps = false;
 
     public function categories()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Category::class);
     }
 }

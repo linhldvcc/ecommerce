@@ -25,7 +25,7 @@ class CategoryController extends BaseController
     public function index()
     {
         //
-        $this->viewData['categories'] = Category::paginate(5);
+        $this->viewData['categories'] = Category::orderBy('id','DESC')->paginate(5);
 
         return view('admin.category.index', $this->viewData);
     }
@@ -102,7 +102,7 @@ class CategoryController extends BaseController
         $this->service->update($category, $inputs);
 
         return redirect()->route('category.index')
-            ->with('success','Thêm Category thành công!');
+            ->with('success','Cập nhật Category thành công!');
     }
 
     /**
