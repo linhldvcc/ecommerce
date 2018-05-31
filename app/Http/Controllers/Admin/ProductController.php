@@ -5,15 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Web\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Services\Web\Contracts\ProductServiceInterface;
+use App\Services\Web\Contracts\ProductImageServiceInterface;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends BaseController
 {
-    public function __construct(ProductServiceInterface $service)
+    public function __construct(
+        ProductServiceInterface $service,
+        ProductImageServiceInterface $productImageService
+    )
     {
         parent::__construct();
 
         $this->service = $service;
+        $this->productImageService = $productImageService;
 
         $this->viewData['title'] = "Tieu de Product";
     }
@@ -56,8 +65,11 @@ class ProductController extends BaseController
         $inputs = $request->only('title','desc','price','old_price');
 
         $product = $this->service->create($inputs);
-
         $product->categories()->attach($request->get('category_id'));
+
+        foreach ($request->images as $image) {
+            $this->productImageService->storeImageForProduct($product->id, $image);
+        }
 
         return redirect()->route('product.index')
             ->with('success','Thêm Product thành công!');
@@ -88,8 +100,6 @@ class ProductController extends BaseController
         $this->viewData['categories'] = Category::orderBy('name', 'ASC')->get();
         $this->viewData['productCategories'] = $product->categories->pluck('id')->toArray();
 
-        var_dump($this->viewData['productCategories']);
-
         $this->viewData['title'] = "Edit Product";
 
         return view('admin.product.edit', $this->viewData);
@@ -109,7 +119,7 @@ class ProductController extends BaseController
 
         $product = Product::find($id);
         $this->service->update($product, $inputs);
-
+        //Sync it's category when change
         $product->categories()->sync($inputs['category_id']);
 
         return redirect()->route('product.index')
@@ -128,6 +138,21 @@ class ProductController extends BaseController
         $product = Product::find($id);
         //delete related Category_product field
         $product->categories()->detach();
+        foreach($product->images as $image) {
+            try {
+                DB::beginTransaction();
+
+                $image_path = $image->save_path;
+                $image->delete();
+
+                File::delete($image_path);
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }
+        }
+
         $product->delete();
 
         return redirect()->route('product.index')

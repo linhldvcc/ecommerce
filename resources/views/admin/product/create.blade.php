@@ -10,21 +10,21 @@
                     Thêm Product
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('product.store') }}" method="post">
+                    <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Tiêu đề</label>
-                            <input type="text" name="title" id="title" class="form-control" placeholder="Nhập tiêu đề Product...">
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Nhập tiêu đề Product..." required>
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea name="desc" rows="9" class="form-control" placeholder="Mô tả sản phẩm.."></textarea>
+                            <textarea name="desc" rows="9" class="form-control" placeholder="Mô tả sản phẩm.." required></textarea>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label>Giá hiện tại</label>
-                                <input type="number" step="0.01" name="price" class="form-control" placeholder="Giá hiện tại">
+                                <input type="number" step="0.01" name="price" class="form-control" placeholder="Giá hiện tại" required>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label>Giá cũ</label>
@@ -44,6 +44,11 @@
                                     </div>
                                 @endforeach
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ảnh sản phẩm</label>
+                            <input type="file" name="images[]" multiple accept="image/*"/>
                         </div>
 
                         <div class="form-actions">

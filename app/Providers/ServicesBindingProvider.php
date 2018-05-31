@@ -12,6 +12,7 @@ class ServicesBindingProvider extends ServiceProvider
         \App\Services\Web\Contracts\UserServiceInterface::class => \App\Services\Web\UserService::class,
         \App\Services\Web\Contracts\CategoryServiceInterface::class => \App\Services\Web\CategoryService::class,
         \App\Services\Web\Contracts\ProductServiceInterface::class => \App\Services\Web\ProductService::class,
+        \App\Services\Web\Contracts\ProductImageServiceInterface::class => \App\Services\Web\ProductImageService::class,
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use App\Models\ProductImage;
 
 class Product extends Base
 {
@@ -21,5 +22,10 @@ class Product extends Base
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }

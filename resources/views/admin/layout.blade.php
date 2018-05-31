@@ -25,6 +25,8 @@
     <link href="/backend/css/style.css" rel="stylesheet">
     <!-- Styles required by this views -->
 
+    @yield('css')
+
 </head>
 
 <!-- BODY options, add following classes to body to change options
@@ -141,9 +143,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('product.index') }}"><i class="icon-puzzle"></i> QL Sản phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="components-cards.html"><i class="icon-puzzle"></i> Cards</a>
                         </li>
                     </ul>
                 </li>
@@ -487,7 +486,7 @@
 <script src="/node_modules/pace-progress/pace.min.js"></script>
 
 <!-- Plugins and scripts required by all views -->
-<script src="/node_modules/chart.js/dist/Chart.min.js"></script>
+{{--<script src="/node_modules/chart.js/dist/Chart.min.js"></script>--}}
 
 <!-- GenesisUI main scripts -->
 
@@ -497,6 +496,8 @@
 
 <!-- Custom scripts required by this view -->
 <script src="/backend/js/views/main.js"></script>
+
+@yield('scripts')
 
 </body>
 </html>
