@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-sm-2">
-            <a href="{{ route('category.create') }}" class="btn btn-success btn-sm">Add category</a>
+            <a href="{{ route('category.create') }}" class="btn btn-success btn-sm">Thêm category</a>
             <br><br>
         </div>
     </div>

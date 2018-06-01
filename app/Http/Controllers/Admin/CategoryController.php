@@ -14,7 +14,7 @@ class CategoryController extends BaseController
 
         $this->service = $service;
 
-        $this->viewData['title'] = "Tieu de Category";
+        $this->viewData['title'] = "Danh sách Category";
     }
 
     /**
@@ -38,7 +38,7 @@ class CategoryController extends BaseController
     public function create()
     {
         //
-        $this->viewData['title'] = "Add Category";
+        $this->viewData['title'] = "Thêm Category";
 
         return view('admin.category.create', $this->viewData);
     }
@@ -79,6 +79,7 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
+        $this->viewData['title'] = "Sửa Category";
         //
         $category = Category::find($id);
         $this->viewData['category'] = $category;
@@ -115,6 +116,7 @@ class CategoryController extends BaseController
     {
         //
         $category = Category::find($id);
+        $category->products()->detach();
         $category->delete();
 
         return redirect()->route('category.index')

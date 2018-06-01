@@ -30,7 +30,7 @@ class ProductImageService extends BaseService implements ProductImageServiceInte
             mkdir($this->photos_path, 0777);
         }
 
-        $save_name = str_random(10).$photo->getClientOriginalName();
+        $save_name = $productId."_".str_random(5)."_".$photo->getClientOriginalName();
 
         $save_path =  $this->photos_path. '/'.$save_name;
 

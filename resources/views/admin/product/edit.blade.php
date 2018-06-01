@@ -3,7 +3,7 @@
     {{ $title }}
 @endsection
 @section('css')
-    <link href="{{ url('node_modules/dropzone/min/dropzone.min.css') }}" rel="stylesheet">
+    <link href="{{ url('lib/dropzone/min/dropzone.min.css') }}" rel="stylesheet">
     <style>
         .dropzone .dz-preview .dz-image img {
             width: 100%;
@@ -137,7 +137,7 @@
 @endsection
 @section('scripts')
     <!--/.col-->
-    <script src="{{ url('node_modules/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ url('lib/dropzone/min/dropzone.min.js') }}"></script>
     <script>
         var total_photos_counter = 0;
         Dropzone.options.dropzone = {

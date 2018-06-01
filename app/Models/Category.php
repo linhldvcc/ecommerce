@@ -17,7 +17,7 @@ class Category extends Base
 
     public $timestamps = false;
 
-    public function categories()
+    public function products()
     {
         return $this->belongsToMany(Product::class);
     }

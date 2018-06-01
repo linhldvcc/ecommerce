@@ -24,7 +24,7 @@ class ProductController extends BaseController
         $this->service = $service;
         $this->productImageService = $productImageService;
 
-        $this->viewData['title'] = "Tieu de Product";
+        $this->viewData['title'] = "Danh sách Sản phẩm";
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductController extends BaseController
     public function create()
     {
         //
-        $this->viewData['title'] = "Add Product";
+        $this->viewData['title'] = "Thêm Sản phẩm";
         $this->viewData['categories'] = Category::orderBy('name','ASC')->get();
 
         return view('admin.product.create', $this->viewData);
@@ -67,8 +67,10 @@ class ProductController extends BaseController
         $product = $this->service->create($inputs);
         $product->categories()->attach($request->get('category_id'));
 
-        foreach ($request->images as $image) {
-            $this->productImageService->storeImageForProduct($product->id, $image);
+        if($request->images) {
+            foreach ($request->images as $image) {
+                $this->productImageService->storeImageForProduct($product->id, $image);
+            }
         }
 
         return redirect()->route('product.index')
