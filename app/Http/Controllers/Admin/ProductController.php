@@ -34,7 +34,7 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $this->viewData['products'] = Product::orderBy('id','DESC')->paginate(10);
+        $this->viewData['products'] = Product::orderBy('id','DESC')->paginate(5);
 
         return view('admin.product.index', $this->viewData);
     }

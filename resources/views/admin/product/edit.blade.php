@@ -5,9 +5,9 @@
 @section('css')
     <link href="{{ url('node_modules/dropzone/min/dropzone.min.css') }}" rel="stylesheet">
     <style>
-        /*.dropzone .dz-preview .dz-image img {*/
-            /*width: 100%;*/
-        /*}*/
+        .dropzone .dz-preview .dz-image img {
+            width: 100%;
+        }
     </style>
 @endsection
 @section('content')
@@ -150,6 +150,7 @@
             dictFileTooBig: 'Image is larger than 16MB',
             timeout: 10000,
             dictInvalidFileType: "upload only JPG/PNG",
+            previewContainer: '#preview',
 
             init: function () {
                 var thisDropzone = this;

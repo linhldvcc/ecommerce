@@ -14,7 +14,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
-    <link rel="shortcut icon" href="/backend/img//favicon.png">
+    <link rel="shortcut icon" href="/img/favicon.png">
     <title>@yield('title')</title>
 
     <!-- Icons -->
@@ -22,7 +22,7 @@
     <link href="/node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Main styles for this application -->
-    <link href="/backend/css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <!-- Styles required by this views -->
 
     @yield('css')
@@ -90,7 +90,7 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <img src="/backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                <img src="/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="d-md-down-none">{{ Auth::user()->email }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -217,7 +217,7 @@
                 <hr class="transparent mx-3 my-0">
                 <div class="callout callout-warning m-0 py-3">
                     <div class="avatar float-right">
-                        <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                     </div>
                     <div>Meeting with
                         <strong>Lucas</strong>
@@ -228,7 +228,7 @@
                 <hr class="mx-3 my-0">
                 <div class="callout callout-info m-0 py-3">
                     <div class="avatar float-right">
-                        <img src="/backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="/img/avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                     </div>
                     <div>Skype with
                         <strong>Megan</strong>
@@ -249,19 +249,19 @@
                     <small class="text-muted"><i class="icon-home"></i>&nbsp; creativeLabs HQ </small>
                     <div class="avatars-stack mt-2">
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                     </div>
                 </div>
@@ -281,25 +281,25 @@
                     <small class="text-muted"><i class="icon-home"></i>&nbsp; creativeLabs HQ </small>
                     <div class="avatars-stack mt-2">
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/2.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/3.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/4.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/5.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/6.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                         <div class="avatar avatar-xs">
-                            <img src="/backend/img//avatars/8.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/8.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                         </div>
                     </div>
                 </div>
@@ -309,7 +309,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -324,7 +324,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -339,7 +339,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -354,7 +354,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -369,7 +369,7 @@
                 <div class="message">
                     <div class="py-3 pb-5 mr-3 float-left">
                         <div class="avatar">
-                            <img src="/backend/img//avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
+                            <img src="/img/avatars/7.jpg" class="backend/img/-avatar" alt="admin@bootstrapmaster.com">
                             <span class="avatar-status badge-success"></span>
                         </div>
                     </div>
@@ -490,12 +490,12 @@
 
 <!-- GenesisUI main scripts -->
 
-<script src="/backend/js/app.js"></script>
+<script src="/js/app.js"></script>
 
 <!-- Plugins and scripts required by this views -->
 
 <!-- Custom scripts required by this view -->
-<script src="/backend/js/views/main.js"></script>
+<script src="/js/views/main.js"></script>
 
 @yield('scripts')
 
