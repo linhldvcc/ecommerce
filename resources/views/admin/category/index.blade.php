@@ -20,7 +20,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Tên</th>
+                            <th class="w-75">Tên</th>
                             <th></th>
                         </tr>
                         </thead>

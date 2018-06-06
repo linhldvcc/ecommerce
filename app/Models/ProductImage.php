@@ -14,10 +14,13 @@ class ProductImage extends Base
      */
     protected $fillable = [
         'product_id',
-        'save_path',
+        'save_name',
         'original_name',
         'is_thumbnail',
     ];
+
+    public static $save_folder = 'product_image';
+    public static $thumb_prefix = 'thumb_';
 
     public function product()
     {
@@ -27,5 +30,15 @@ class ProductImage extends Base
     public function getUrlAttribute()
     {
         //return Storage::url($this->id);
+    }
+
+    public function getSavePathAttribute()
+    {
+        return $this::$save_folder."/".$this->save_name;
+    }
+
+    public function getThumbImagePathAttribute()
+    {
+        return $this::$save_folder."/".$this::$thumb_prefix.$this->save_name;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return $user->hasDefinePrivilege($permissions);
+        });
+
+        //Create directive to show Price
+        Blade::directive('money', function ($money) {
+            return "<?php echo number_format($money); ?>";
         });
     }
 

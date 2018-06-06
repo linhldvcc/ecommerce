@@ -12,7 +12,7 @@ class CreateProductImageTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('save_path');
+            $table->string('save_name');
             $table->string('original_name');
             $table->boolean('is_thumbnail')->default(false);
             $table->timestamps();

@@ -4,9 +4,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\ProductImage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Base
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +21,8 @@ class Product extends Base
         'old_price',
     ];
 
+    protected $dates = ['deleted_at'];
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -27,5 +31,15 @@ class Product extends Base
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function idArrOfCategories()
+    {
+        return $this->categories()->pluck('id')->toArray();
+    }
+
+    public function scopeOrderByIdDesc($query)
+    {
+        return $query->orderBy('id', 'DESC');
     }
 }

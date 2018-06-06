@@ -6,6 +6,7 @@ use App\Http\Requests\Web\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Services\Web\Contracts\CategoryServiceInterface;
 use App\Services\Web\Contracts\ProductServiceInterface;
 use App\Services\Web\Contracts\ProductImageServiceInterface;
 use Illuminate\Http\Request;
@@ -16,13 +17,15 @@ class ProductController extends BaseController
 {
     public function __construct(
         ProductServiceInterface $service,
-        ProductImageServiceInterface $productImageService
+        ProductImageServiceInterface $productImageService,
+        CategoryServiceInterface $categoryService
     )
     {
         parent::__construct();
 
         $this->service = $service;
         $this->productImageService = $productImageService;
+        $this->categoryService = $categoryService;
 
         $this->viewData['title'] = "Danh sách Sản phẩm";
     }
@@ -34,7 +37,7 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $this->viewData['products'] = Product::orderBy('id','DESC')->paginate(5);
+        $this->viewData['products'] = $this->service->getAvailableProductForAuth()->orderByIdDesc()->paginate(5);
 
         return view('admin.product.index', $this->viewData);
     }
@@ -46,9 +49,10 @@ class ProductController extends BaseController
      */
     public function create()
     {
+        $this->authorize('create-product');
         //
         $this->viewData['title'] = "Thêm Sản phẩm";
-        $this->viewData['categories'] = Category::orderBy('name','ASC')->get();
+        $this->viewData['categories'] = $this->categoryService->getAbilityCategoriesOfUser(auth()->user())->get();
 
         return view('admin.product.create', $this->viewData);
     }
@@ -65,7 +69,7 @@ class ProductController extends BaseController
         $inputs = $request->only('title','desc','price','old_price');
 
         $product = $this->service->create($inputs);
-        $product->categories()->attach($request->get('category_id'));
+        $this->service->syncCategory($product, $request->get('category_id'));
 
         if($request->images) {
             foreach ($request->images as $image) {
@@ -96,10 +100,13 @@ class ProductController extends BaseController
      */
     public function edit($id)
     {
-        //
         $product = Product::find($id);
+        
+        $this->authorize('touch-product', $product);
+        $this->authorize('update-product');
+
         $this->viewData['product'] = $product;
-        $this->viewData['categories'] = Category::orderBy('name', 'ASC')->get();
+        $this->viewData['categories'] = $this->categoryService->getAbilityCategoriesOfUser(auth()->user())->get();
         $this->viewData['productCategories'] = $product->categories->pluck('id')->toArray();
 
         $this->viewData['title'] = "Edit Product";
@@ -116,13 +123,15 @@ class ProductController extends BaseController
      */
     public function update(ProductRequest $request, $id)
     {
-        //
         $inputs = $request->all();
 
         $product = Product::find($id);
+        $this->authorize('touch-product', $product);
+        $this->authorize('update-product');
+
         $this->service->update($product, $inputs);
         //Sync it's category when change
-        $product->categories()->sync($inputs['category_id']);
+        $this->service->syncCategory($product, $inputs['category_id']);
 
         return redirect()->route('product.index')
             ->with('success','Cập nhật Product thành công!');
@@ -138,13 +147,16 @@ class ProductController extends BaseController
     {
         //
         $product = Product::find($id);
+        $this->authorize('touch-product', $product);
+        $this->authorize('delete-product');
+
         //delete related Category_product field
         $product->categories()->detach();
         foreach($product->images as $image) {
             try {
                 DB::beginTransaction();
 
-                $image_path = $image->save_path;
+                $image_path = $image->save_name;
                 $image->delete();
 
                 File::delete($image_path);

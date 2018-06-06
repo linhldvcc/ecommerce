@@ -24,6 +24,8 @@ class CategoryController extends BaseController
      */
     public function index()
     {
+        $this->authorize('admin-role');
+
         //
         $this->viewData['categories'] = Category::orderBy('id','DESC')->paginate(5);
 
@@ -37,6 +39,8 @@ class CategoryController extends BaseController
      */
     public function create()
     {
+        $this->authorize('admin-role');
+
         //
         $this->viewData['title'] = "Thêm Category";
 
@@ -51,6 +55,8 @@ class CategoryController extends BaseController
      */
     public function store(CategoryRequest $request)
     {
+        $this->authorize('admin-role');
+
         //
         $inputs = $request->only('name');
 
@@ -79,6 +85,8 @@ class CategoryController extends BaseController
      */
     public function edit($id)
     {
+        $this->authorize('admin-role');
+
         $this->viewData['title'] = "Sửa Category";
         //
         $category = Category::find($id);
@@ -96,6 +104,7 @@ class CategoryController extends BaseController
      */
     public function update(CategoryRequest $request, $id)
     {
+        $this->authorize('admin-role');
         //
         $inputs = $request->only('name');
 
@@ -114,6 +123,7 @@ class CategoryController extends BaseController
      */
     public function destroy($id)
     {
+        $this->authorize('admin-role');
         //
         $category = Category::find($id);
         $category->products()->detach();

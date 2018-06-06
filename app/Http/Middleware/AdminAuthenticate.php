@@ -22,14 +22,14 @@ class AdminAuthenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect('/home');
+                return redirect('/login');
             }
         }
 
         if ($user = Auth::guard($guard)->user()) {
-            if (!$user->isAccessAdmin()) {
-                return response('Unauthorized.', 401);
-            }
+//            if (!$user->isAccessAdmin()) {
+//                return response('Unauthorized.', 401);
+//            }
         }
 
         return $next($request);

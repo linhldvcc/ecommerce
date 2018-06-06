@@ -138,22 +138,26 @@
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Quản trị sản phẩm</a>
                     <ul class="nav-dropdown-items">
+                        @can('admin-role')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('category.index') }}"><i class="icon-puzzle"></i> QL Category</a>
                         </li>
+                        @endcan
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('product.index') }}"><i class="icon-puzzle"></i> QL Sản phẩm</a>
                         </li>
                     </ul>
                 </li>
+                @can('admin-role')
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Quản trị User</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('category.index') }}"><i class="icon-puzzle"></i> Phân quyền</a>
+                            <a class="nav-link" href="{{ route('user.index') }}"><i class="icon-puzzle"></i> Phân quyền</a>
                         </li>
                     </ul>
                 </li>
+                @endcan
             </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

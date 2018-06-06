@@ -18,7 +18,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea name="desc" rows="9" class="form-control" placeholder="Mô tả sản phẩm.." required></textarea>
+                            <textarea name="desc" rows="9" class="form-control" placeholder="Mô tả sản phẩm.." id="desc-ckeditor" required></textarea>
                         </div>
 
                         <div class="row">
@@ -32,19 +32,20 @@
                             </div>
                         </div>
 
-
-
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label">Category</label>
                             <div class="col-md-9">
-
-                                @foreach($categories as $category)
-                                    <div class="checkbox">
-                                        <label for="checkbox1">
-                                            <input type="checkbox" name="category_id[]" value="{{ $category->id }}"> {{ $category->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                @if(count($categories))
+                                    @foreach($categories as $category)
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="category_id[]" value="{{ $category->id }}"> {{ $category->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    Không có Category
+                                @endif
                             </div>
                         </div>
 
@@ -62,4 +63,11 @@
         </div>
         <!--/.col-->
     </div>
+@endsection
+@section('scripts')
+    <script src="{{ url('lib/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('desc-ckeditor');
+    </script>
+
 @endsection

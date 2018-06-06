@@ -46,8 +46,12 @@ class ProductImageController extends BaseController
         if($request->ajax()) {
             $image = ProductImage::find($request->id); //Get image by id or desired parameters
 
-            if (File::exists($image->save_path)) {
-                File::delete($image->save_path);
+            if (File::exists($image->savePath)) {
+                File::delete($image->savePath);
+            }
+
+            if (File::exists($image->thumbImagePath)) {
+                File::delete($image->thumbImagePath);
             }
 
             $image->delete();  //Delete file record from DB
@@ -61,10 +65,15 @@ class ProductImageController extends BaseController
         $product = Product::find($productId);
 
         foreach ($product->images as $image) {
+            $fileSize = 0;
+            if(File::exists(public_path($image->savePath))) {
+                $fileSize = File::size(public_path($image->savePath));
+            }
+
             $imageAnswer[] = [
                 'name' => $image->original_name,
-                'path' => $image->save_path,
-                'size' => File::size(public_path($image->save_path)),
+                'path' => $image->thumbImagePath,
+                'size' => $fileSize,
                 'id'   => $image->id,
             ];
         }

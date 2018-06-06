@@ -34,4 +34,20 @@ class CategoryService extends BaseService implements CategoryServiceInterface
             'name' => $inputs['name'],
         ]);
     }
+
+    public function getAbilityCategoriesOfUser($user)
+    {
+        if($user->isAccessAdmin()) {
+            return $this->model->orderByNameAsc();
+        }
+
+        $abilitiesOfUser = $user->abilityCategories()->pluck('category_id')->toArray();
+
+        return $this->model->whereIn('id', $abilitiesOfUser)->orderByNameAsc();
+    }
+
+    public function getIdArrOfAbilityCategoriesOfUser($user)
+    {
+        return $this->getAbilityCategoriesOfUser($user)->orderByNameAsc()->pluck('id')->toArray();
+    }
 }

@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea name="desc" rows="9" class="form-control" placeholder="Mô tả sản phẩm..." required>{{ $product->desc }}</textarea>
+                            <textarea name="desc" id="desc-ckeditor" rows="9" class="form-control" placeholder="Mô tả sản phẩm..." required>{{ $product->desc }}</textarea>
                         </div>
 
                         <div class="row">
@@ -45,13 +45,18 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label">Category</label>
                             <div class="col-md-9">
-                                @foreach($categories as $category)
-                                    <div class="checkbox">
-                                        <label for="checkbox1">
-                                            {{ Form::checkbox('category_id[]', $category->id, in_array($category->id, $productCategories)) }} {{ $category->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                @if(count($categories))
+                                    @foreach($categories as $category)
+                                        <div class="checkbox">
+                                            <label>
+                                                {{ Form::checkbox('category_id[]', $category->id, in_array($category->id, $productCategories)) }} {{ $category->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    Không có Category
+                                @endif
+
                             </div>
                         </div>
 
@@ -136,7 +141,14 @@
     </div>
 @endsection
 @section('scripts')
-    <!--/.col-->
+    <!--CKEDITOR PLUGIN-->
+    <script src="{{ url('lib/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('desc-ckeditor');
+    </script>
+    <!--END CKEDITOR PLUGIN-->
+
+    <!--DROPZONE PLUGIN-->
     <script src="{{ url('lib/dropzone/min/dropzone.min.js') }}"></script>
     <script>
         var total_photos_counter = 0;
@@ -194,4 +206,5 @@
             }
         };
     </script>
+    <!--END DROPZONE PLUGIN-->
 @endsection

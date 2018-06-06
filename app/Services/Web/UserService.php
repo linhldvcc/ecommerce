@@ -34,4 +34,10 @@ class UserService extends BaseService implements UserServiceInterface
             'name' => $inputs['name'],
         ]);
     }
+
+    public function syncAbilityCategories($user, $inputs) {
+        $inputs['category_id'] = $inputs['category_id'] ?? [];
+
+        $user->abilityCategories()->sync($inputs['category_id']);
+    }
 }
