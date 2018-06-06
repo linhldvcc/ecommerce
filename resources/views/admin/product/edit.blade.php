@@ -8,6 +8,10 @@
         .dropzone .dz-preview .dz-image img {
             width: 100%;
         }
+
+        .dropzone .dz-message {
+            display: block !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -93,7 +97,6 @@
 
         {{--Dropzone Preview Template--}}
         <div id="preview" style="display: none;">
-
             <div class="dz-preview dz-file-preview">
                 <div class="dz-image"><img data-dz-thumbnail /></div>
 
@@ -104,10 +107,7 @@
                 <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
                 <div class="dz-error-message"><span data-dz-errormessage></span></div>
 
-
-
                 <div class="dz-success-mark">
-
                     <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                         <!-- Generator: Sketch 3.2.1 (9971) - http://www.bohemiancoding.com/sketch -->
                         <title>Check</title>
@@ -120,7 +120,6 @@
 
                 </div>
                 <div class="dz-error-mark">
-
                     <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                         <!-- Generator: Sketch 3.2.1 (9971) - http://www.bohemiancoding.com/sketch -->
                         <title>error</title>
@@ -137,7 +136,6 @@
         </div>
         {{--End of Dropzone Preview Template--}}
 
-
     </div>
 @endsection
 @section('scripts')
@@ -153,7 +151,6 @@
     <script>
         var total_photos_counter = 0;
         Dropzone.options.dropzone = {
-            acceptedFiles: "image/jpeg,image/png,image/gif",
             parallelUploads: 100,
             maxFilesize: 16,
             previewTemplate: document.querySelector('#preview').innerHTML,
@@ -163,6 +160,8 @@
             timeout: 10000,
             dictInvalidFileType: "upload only JPG/PNG",
             previewContainer: '#preview',
+            acceptedFiles: "image/*",
+            dictDefaultMessage: "Bấm vào đây hoặc kéo thả ảnh vào để Upload",
 
             init: function () {
                 var thisDropzone = this;
@@ -182,9 +181,6 @@
                 });
 
                 this.on("removedfile", function (file) {
-
-                    console.log(file);
-
                     $.post({
                         url: "{{ route('product_image.delete', $product->id) }}",
                         data: {id: file.previewElement.id, _token: "{{ csrf_token() }}"},
@@ -197,12 +193,9 @@
                 });
             },
             success: function (file, response) {
-
-                console.log(response);
+                //Set ID for this image, get it from Server after upload
+                //we will remove Image base on its id
                 file.previewElement.id = response.serverId;
-
-                total_photos_counter++;
-                $("#counter").text("# " + total_photos_counter);
             }
         };
     </script>
