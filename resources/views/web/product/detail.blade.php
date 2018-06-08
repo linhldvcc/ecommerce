@@ -4,7 +4,7 @@
        <div class="col-md-4">
            gallery
        </div>
-       <div class="col-md-8">
+       <div class="col-md-8" id="product-lists">
            <h2>{{ $product->title }}</h2>
            <p>@money($product->price)</p>
             <p class="old-price">@money($product->old_price)</p>
