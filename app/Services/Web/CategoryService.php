@@ -35,6 +35,11 @@ class CategoryService extends BaseService implements CategoryServiceInterface
         ]);
     }
 
+    public function getAvailableCategoryForUser()
+    {
+        return $this->model->orderByNameAsc();
+    }
+
     public function getAbilityCategoriesOfUser($user)
     {
         if($user->isAccessAdmin()) {
@@ -49,5 +54,12 @@ class CategoryService extends BaseService implements CategoryServiceInterface
     public function getIdArrOfAbilityCategoriesOfUser($user)
     {
         return $this->getAbilityCategoriesOfUser($user)->orderByNameAsc()->pluck('id')->toArray();
+    }
+
+    public function getAllProductsByCategory($categoryId)
+    {
+        $category = $this->model->find($categoryId);
+
+        return $category->products();
     }
 }

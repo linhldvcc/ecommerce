@@ -41,4 +41,9 @@ class ProductImage extends Base
     {
         return $this::$save_folder."/".$this::$thumb_prefix.$this->save_name;
     }
+
+    public function getThumbnailURLAttribute()
+    {
+        return url($this->thumbImagePath);
+    }
 }

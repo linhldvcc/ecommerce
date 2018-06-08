@@ -15,6 +15,9 @@ Route::namespace('Web')->group(function () {
     Route::get('/', 'HomeController@index');
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/category/{categoryId}', 'ProductController@getAllProductsByCategory')->name('product.getByCategory');
+    Route::get('/product/{productId}', 'ProductController@detail')->name('product.detail');
 });
 
 Auth::routes();

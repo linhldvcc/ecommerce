@@ -42,4 +42,9 @@ class Product extends Base
     {
         return $query->orderBy('id', 'DESC');
     }
+
+    public function getThumbnailURLAttribute()
+    {
+        return $this->images()->first() ? $this->images()->first()->thumbnailURL : '';
+    }
 }

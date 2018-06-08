@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         //Create directive to show Price
         Blade::directive('money', function ($money) {
-            return "<?php echo number_format($money); ?>";
+            return "<?php echo ($money) ? number_format($money) : ''; ?>";
         });
     }
 
