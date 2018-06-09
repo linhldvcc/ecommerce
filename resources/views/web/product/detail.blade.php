@@ -2,7 +2,7 @@
 @section('content')
    <div class="row">
        <div class="col-md-4">
-           gallery
+           <img src="{{ $product->thumbnailURL }}" class="img-fluid">
        </div>
        <div class="col-md-8" id="product-lists">
            <h2>{{ $product->title }}</h2>
@@ -27,17 +27,33 @@
     <script>
         $(document).ready(function(){
             $('#add-to-cart-btn').on("click", function(){
+
+                var productQty = $('#product-qty').val();
+
+                if(Number(productQty) < 1 || parseInt(productQty) % 1 !== 0) {
+                    alert("Vui lòng nhập số lượng!");
+                    return;
+                }
+
                 $.ajax({
                     type:'POST',
-                    url:'{{ route('card.add-item') }}',
+                    url:'{{ route('cart.add-item') }}',
                     data:{
                         _token: "{{ csrf_token() }}",
-                        product_qty: $('#product-qty').val(),
+                        product_qty: productQty,
                         product_id: $('#product-id').val(),
                     },
                     success:function(response) {
-                        alert("okay");
-                    }
+                        if(response.success) {
+                            alert("Đã thêm vào giỏ hàng");
+                            $('#cart-badge').html(response.cartCount);
+                        } else {
+                            alert("Có lỗi xảy ra, vui lòng thử lại");
+                        }
+                    },
+                    error: function(){
+                        alert("Có lỗi xảy ra, vui lòng thử lại");
+                    },
                 });
             });
         })

@@ -33,33 +33,30 @@
             </table>
 
             <h4>THÔNG TIN GIAO HÀNG:</h4>
-            <form action="" method="POST">
+            <form action="{{ route('cart.place-order') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label>Họ và tên</label>
-                    <input class="form-control" type="text" name="client_name">
+                    <input class="form-control" type="text" name="customer_name">
                 </div>
                 <div class="form-group">
                     <label>Số điện thoại</label>
-                    <input class="form-control" type="text" name="client_tel">
+                    <input class="form-control" type="text" name="customer_tel">
                 </div>
                 <div class="form-group">
                     <label>Địa chỉ</label>
-                    <input class="form-control" type="text" name="client_address">
+                    <input class="form-control" type="text" name="customer_address">
                 </div>
                 <div class="form-group">
                     <label>Ghi chú</label>
-                    <input class="form-control" type="text" name="client_note">
+                    <input class="form-control" type="text" name="customer_note">
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 float-right">
+                        <button type="submit" class="btn btn-success">Đặt hàng</button>
+                    </div>
                 </div>
             </form>
-
-            <div class="row">
-                <div class="col-sm-3 float-right">
-                    <a href="{{ route('cart.get-order') }}" class="btn btn-success">Đặt hàng</a>
-
-                </div>
-            </div>
-
         @else
             Không có sản phẩm nào trong giỏ hàng của bạn
         @endif

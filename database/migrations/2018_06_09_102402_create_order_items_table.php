@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderItemsPermissionsTable extends Migration
+class CreateOrderItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,8 @@ class CreateOrderItemsPermissionsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('qty')->unsigned();
             $table->integer('price')->unsigned();
+
+            $table->timestamps();
 
             $table->foreign('order_id')
                 ->references('id')

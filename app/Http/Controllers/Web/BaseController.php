@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Gate;
+use Illuminate\Support\Facades\Session;
 
 class BaseController extends Controller
 {
@@ -12,5 +13,7 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->viewData = [];
+
+        $this->viewData['cart'] = session()->get('cart', []);
     }
 }

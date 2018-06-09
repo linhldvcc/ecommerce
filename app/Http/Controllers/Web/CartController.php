@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\Web\ProductRequest;
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Services\Web\Contracts\CategoryServiceInterface;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Models\Order;
 
 class CartController extends BaseController
 {
@@ -53,7 +55,7 @@ class CartController extends BaseController
         $cart = $this->getCartFromSession();
 
         $productId = $inputs['product_id'];
-        $productQty = $inputs['product_qty'];
+        $productQty = (int) $inputs['product_qty'];
 
         if(!isset($cart[$productId])) {
             $cart[$productId] = 0;
@@ -63,12 +65,39 @@ class CartController extends BaseController
 
         $this->putCartToSession($cart);
 
+        return response()->json(['success' => true, 'cartCount' => count($cart)]);
+    }
+
+    public function deleteItem(Request $request)
+    {
+        $inputs = $request->all();
+
+        $cart = $this->getCartFromSession();
+        unset($cart[$inputs['product_id']]);
+
+        $this->putCartToSession($cart);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function updateItem(Request $request)
+    {
+        $inputs = $request->all();
+
+        if((int) $inputs['product_qty'] > 0) {
+            $cart = $this->getCartFromSession();
+            $cart[$inputs['product_id']] = (int) $inputs['product_qty'];
+
+            $this->putCartToSession($cart);
+        }
+
         return response()->json(['success' => true]);
     }
 
     public function getItem(Request $request)
     {
         $cart = $this->getCartFromSession();
+
         $products = [];
         $totalPrice = 0;
 
@@ -105,5 +134,30 @@ class CartController extends BaseController
         $this->viewData['products'] = $products;
 
         return view('web.cart.order', $this->viewData);
+    }
+
+    public function placeOrder(Request $request)
+    {
+        $inputs = $request->only('customer_name', 'customer_address', 'customer_tel', 'customer_note');
+
+        $order = Order::create($inputs);
+        $cart = $this->getCartFromSession();
+
+        foreach($cart as $productId => $productQty) {
+            $product = $this->productService->find($productId);
+
+            OrderItem::create(
+                [
+                    'product_id' => $productId,
+                    'qty' => $productQty,
+                    'order_id' => $order->id,
+                    'price' => $product->price,
+                ]
+            );
+        }
+
+        Session::forget('cart');
+
+        return redirect()->route('home');
     }
 }

@@ -29,9 +29,7 @@ class HomeController extends BaseController
     {
         $this->viewData['categories'] = $this->categoryService->getAvailableCategoryForUser()->get();
         $this->viewData['products'] = $this->productService->getAll()->orderByIdDesc()->paginate(2);
-
-        var_dump(Session::get('cart'));die;
-
+        
         return view('web.index', $this->viewData);
     }
 }

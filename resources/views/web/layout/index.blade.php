@@ -5,11 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ $title }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href="{{ url('lib/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url('lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -56,7 +57,9 @@
                     {{--</li>--}}
                 </ul>
                 <span class="navbar-text">
-                  Navbar text with an inline element
+                    <a href="{{ route('cart.get-item') }}"><i class="fa fa-2x fa-shopping-cart"></i> Giỏ hàng</a>
+                    <?php $badge = (count($cart) > 0) ? count($cart) : ''; ?>
+                    <lavel id="cart-badge" class="badge badge-warning">{{ $badge }}</lavel>
                 </span>
             </div>
         </nav>

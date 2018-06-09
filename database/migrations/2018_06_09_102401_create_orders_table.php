@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersPermissionsTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,12 +18,13 @@ class CreateOrdersPermissionsTable extends Migration
             //$table->integer('customer_id')->unsigned();
 
             $table->enum('status',['processing','processed']);
-            $table->string('client_name');
-            $table->string('client_address');
-            $table->string('client_tel');
-            $table->string('client_note');
+            $table->string('customer_name');
+            $table->string('customer_address');
+            $table->string('customer_tel');
+            $table->string('customer_note')->nullable();
 
             $table->softDeletes();
+            $table->timestamps();
 
 //            $table->foreign('customer_id')
 //                ->references('id')
