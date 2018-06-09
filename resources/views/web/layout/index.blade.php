@@ -17,6 +17,8 @@
                 text-decoration: line-through;
             }
         </style>
+        <script src="{{ url('lib/jquery/dist/jquery.min.js') }}"></script>
+        @yield('script')
     </head>
     <body>
     <div class="container">

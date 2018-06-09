@@ -12,17 +12,34 @@
                {!! $product->desc !!}
            </div>
            <div class="divider"></div>
-           <form>
-               @csrf
-               <input type="hidden" name="product" value="{{ $product->id }}">
+               <input type="hidden" id="product-id" value="{{ $product->id }}">
                <div class="form-group">
                    <p>nhập số lượng cần mua</p>
-                   <input type="number" step="1" min="1" required>
+                   <input id="product-qty" type="number" step="1" min="1" required>
                </div>
 
-               <button class="btn btn-success">Thêm vào giỏ hàng</button>
-           </form>
+               <button class="btn btn-success" id="add-to-cart-btn">Thêm vào giỏ hàng</button>
 
        </div>
    </div>
 @endsection()
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $('#add-to-cart-btn').on("click", function(){
+                $.ajax({
+                    type:'POST',
+                    url:'{{ route('card.add-item') }}',
+                    data:{
+                        _token: "{{ csrf_token() }}",
+                        product_qty: $('#product-qty').val(),
+                        product_id: $('#product-id').val(),
+                    },
+                    success:function(response) {
+                        alert("okay");
+                    }
+                });
+            });
+        })
+    </script>
+@endsection

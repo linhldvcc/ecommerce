@@ -18,6 +18,11 @@ Route::namespace('Web')->group(function () {
 
     Route::get('/category/{categoryId}', 'ProductController@getAllProductsByCategory')->name('product.getByCategory');
     Route::get('/product/{productId}', 'ProductController@detail')->name('product.detail');
+
+    Route::post('/cart/add-item', 'CartController@addItem')->name('cart.add-item');
+
+    Route::get('/cart', 'CartController@getItem')->name('cart.get-item');
+    Route::get('/cart/order', 'CartController@getOrder')->name('cart.get-order');
 });
 
 Auth::routes();

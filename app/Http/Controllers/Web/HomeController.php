@@ -8,6 +8,7 @@ use App\Services\Helpers\EmailService;
 use App\Services\Web\Contracts\CategoryServiceInterface;
 use App\Services\Web\Contracts\ProductServiceInterface;
 use App\Services\Web\ProductService;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends BaseController
 {
@@ -27,7 +28,9 @@ class HomeController extends BaseController
     public function index()
     {
         $this->viewData['categories'] = $this->categoryService->getAvailableCategoryForUser()->get();
-        $this->viewData['products'] = $this->productService->getAll()->orderByIdDesc()->paginate(1);
+        $this->viewData['products'] = $this->productService->getAll()->orderByIdDesc()->paginate(2);
+
+        var_dump(Session::get('cart'));die;
 
         return view('web.index', $this->viewData);
     }
