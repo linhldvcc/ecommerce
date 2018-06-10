@@ -37,15 +37,15 @@
                 @csrf
                 <div class="form-group">
                     <label>Họ và tên</label>
-                    <input class="form-control" type="text" name="customer_name">
+                    <input class="form-control" type="text" name="customer_name" required>
                 </div>
                 <div class="form-group">
                     <label>Số điện thoại</label>
-                    <input class="form-control" type="text" name="customer_tel">
+                    <input class="form-control" type="text" name="customer_tel" required>
                 </div>
                 <div class="form-group">
                     <label>Địa chỉ</label>
-                    <input class="form-control" type="text" name="customer_address">
+                    <input class="form-control" type="text" name="customer_address" required>
                 </div>
                 <div class="form-group">
                     <label>Ghi chú</label>

@@ -158,6 +158,7 @@ class CartController extends BaseController
 
         Session::forget('cart');
 
-        return redirect()->route('home');
+        return redirect()->route('home')
+            ->with('success', 'Đặt hàng thành công!');
     }
 }
