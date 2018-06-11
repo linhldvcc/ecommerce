@@ -7,8 +7,8 @@
                 <tr>
                     <th scope="col" class="w-25"></th>
                     <th scope="col">Tên</th>
-                    <th scope="col">Giá</th>
                     <th scope="col">Số lượng</th>
+                    <th scope="col">Giá</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,9 @@
                 </tbody>
             </table>
 
-            <h4>THÔNG TIN GIAO HÀNG:</h4>
+            <hr>
+        
+            <h4>THÔNG TIN GIAO HÀNG</h4>
             <form action="{{ route('cart.place-order') }}" method="POST">
                 @csrf
                 <div class="form-group">

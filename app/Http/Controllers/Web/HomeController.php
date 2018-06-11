@@ -28,7 +28,7 @@ class HomeController extends BaseController
     public function index()
     {
         $this->viewData['categories'] = $this->categoryService->getAvailableCategoryForUser()->get();
-        $this->viewData['products'] = $this->productService->getAll()->orderByIdDesc()->paginate(2);
+        $this->viewData['products'] = $this->productService->getAll()->orderByIdDesc()->paginate(20);
         
         return view('web.index', $this->viewData);
     }

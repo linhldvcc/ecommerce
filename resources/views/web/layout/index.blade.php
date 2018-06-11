@@ -17,7 +17,14 @@
             #product-lists .old-price {
                 text-decoration: line-through;
             }
+
+            .content {
+                margin-top: 15px;
+            }
         </style>
+
+        @yield('css')
+
         <script src="{{ url('lib/jquery/dist/jquery.min.js') }}"></script>
         @yield('script')
     </head>

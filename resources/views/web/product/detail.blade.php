@@ -1,4 +1,9 @@
 @extends('web/layout/index')
+
+@section('css')
+    <link href="{{ url('/lib/xzoom/style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
    <div class="row">
        <div class="col-md-4">
@@ -19,15 +24,15 @@
                </div>
 
                <button class="btn btn-success" id="add-to-cart-btn">Thêm vào giỏ hàng</button>
-
        </div>
    </div>
-@endsection()
+@endsection
+
 @section('script')
+    <script src="{{ url('lib/xzoom/dist/xzoom.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#add-to-cart-btn').on("click", function(){
-
                 var productQty = $('#product-qty').val();
 
                 if(Number(productQty) < 1 || parseInt(productQty) % 1 !== 0) {

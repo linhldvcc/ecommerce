@@ -103,10 +103,12 @@ class CartController extends BaseController
 
         foreach($cart as $productId => $productQty) {
             $product = $this->productService->find($productId);
-            $product->qty = $productQty;
+            if($product) {
+                $product->qty = $productQty;
 
-            $totalPrice += $product->price * $productQty;
-            $products[] = $product;
+                $totalPrice += $product->price * $productQty;
+                $products[] = $product;
+            }
         }
 
         $this->viewData['products'] = $products;
@@ -123,11 +125,13 @@ class CartController extends BaseController
 
         foreach($cart as $productId => $productQty) {
             $product = $this->productService->find($productId);
-            $product->qty = $productQty;
-            $product->totalPrice = $productQty * $product->price;
+            if($product) {
+                $product->qty = $productQty;
+                $product->totalPrice = $productQty * $product->price;
 
-            $totalPrice += $product->price * $productQty;
-            $products[] = $product;
+                $totalPrice += $product->price * $productQty;
+                $products[] = $product;
+            }
         }
 
         $this->viewData['totalPrice'] = $totalPrice;
@@ -146,14 +150,16 @@ class CartController extends BaseController
         foreach($cart as $productId => $productQty) {
             $product = $this->productService->find($productId);
 
-            OrderItem::create(
-                [
-                    'product_id' => $productId,
-                    'qty' => $productQty,
-                    'order_id' => $order->id,
-                    'price' => $product->price,
-                ]
-            );
+            if($product) {
+                OrderItem::create(
+                    [
+                        'product_id' => $productId,
+                        'qty' => $productQty,
+                        'order_id' => $order->id,
+                        'price' => $product->price,
+                    ]
+                );
+            }
         }
 
         Session::forget('cart');

@@ -45,6 +45,7 @@ class Product extends Base
 
     public function getThumbnailURLAttribute()
     {
-        return $this->images()->first() ? $this->images()->first()->thumbnailURL : '';
+        $firstImage = $this->images()->first();
+        return $firstImage ? $firstImage->thumbnailURL : '';
     }
 }

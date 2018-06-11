@@ -49,7 +49,7 @@
                             product_qty: product_qty,
                         },
                         success:function(response) {
-                            location.reload();
+                            
                         },
                         error: function() {
                             alert("Có lỗi xảy ra, vui lòng thử lại.")
